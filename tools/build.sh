@@ -114,6 +114,7 @@ cp "$SO" "$ROOT/module/zygisk/$ABI.so"
 
 VERSION="$(grep '^version=' "$ROOT/module/module.prop" | cut -d= -f2)"
 VERSION_CODE="$(grep '^versionCode=' "$ROOT/module/module.prop" | cut -d= -f2)"
+mkdir -p "$ROOT/dist"
 ZIP_NAME="clipshield-${VERSION_CODE}-${VERSION}.zip"
 python - "$ROOT/dist/$ZIP_NAME" "$ROOT/module" <<'PY'
 import os, sys, zipfile
