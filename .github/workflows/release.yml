@@ -18,21 +18,12 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - uses: android-actions/setup-android@v3
-
-      - name: Install NDK
-        id: ndk
-        uses: nttld/setup-ndk@v1
-        with:
-          ndk-version: r27c
-          add-to-path: false
+      # ubuntu-latest 镜像自带 Android SDK（含 NDK 27），无需额外安装
 
       - name: Fetch deps
         run: tools/fetch_deps.sh
 
       - name: Build module zip
-        env:
-          ANDROID_NDK_HOME: ${{ steps.ndk.outputs.ndk-path }}
         run: tools/build.sh
 
       # 构建 ./module 目录、预检并发布 immutable release

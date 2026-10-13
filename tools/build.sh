@@ -9,15 +9,22 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SDK="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-D:/AndroidSDK}}"
-NDK="${ANDROID_NDK_HOME:-$SDK/ndk/27.0.12077973}"
 BUILD_TYPE="${BUILD_TYPE:-Release}"
 ABI="arm64-v8a"
 
 # Git Bash/MSYS 下把 Windows 风格路径转为 POSIX（否则 PATH 中的 "D:" 会被冒号拆坏）
 command -v cygpath >/dev/null 2>&1 && {
   SDK="$(cygpath -u "$SDK")"
-  NDK="$(cygpath -u "$NDK")"
 }
+
+# NDK：优先 ANDROID_NDK_HOME，否则在 SDK 下自动探测（优先 27.x，回退最新）
+if [ -z "${ANDROID_NDK_HOME:-}" ] || [ ! -d "${ANDROID_NDK_HOME:-}" ]; then
+  NDK="$(ls -d "$SDK"/ndk/27* 2>/dev/null | sort -V | tail -1)"
+  [ -n "$NDK" ] || NDK="$(ls -d "$SDK"/ndk/* 2>/dev/null | sort -V | tail -1)"
+  [ -z "$NDK" ] && NDK="$SDK/ndk/27.0.12077973"
+else
+  NDK="$ANDROID_NDK_HOME"
+fi
 
 [ -d "$SDK" ] || { echo "ERROR: SDK not found: $SDK (set ANDROID_SDK_ROOT)"; exit 1; }
 [ -d "$NDK" ] || { echo "ERROR: NDK not found: $NDK (set ANDROID_NDK_HOME)"; exit 1; }
