@@ -12,5 +12,6 @@ native/src/embed/
 
 # 本地产物
 module/zygisk/*.so
+module/bin/
 *.zip
 .zcode/

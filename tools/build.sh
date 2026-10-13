@@ -101,21 +101,21 @@ if [ -n "${STRIP:-}" ]; then "$STRIP" --strip-all "$SO"; fi
 echo "== .so built: $(wc -c < "$SO") bytes"
 
 # ---- 4. 打包模块 zip ----
-# 内置 aapt（读真实应用名）及其 .so 依赖（vendor 目录，源自 Termux aapt 16.0.0.4-3）
+# 构建产物直接写入真实 module/ 目录（CI 的 module-release 与本地产包都从这里打包）
 if [ -f "$ROOT/vendor/aapt/aapt" ]; then
-  mkdir -p "$STAGE/src/module/bin/libs"
-  cp "$ROOT/vendor/aapt/aapt" "$STAGE/src/module/bin/aapt"
-  cp "$ROOT"/vendor/aapt/libs/*.so* "$STAGE/src/module/bin/libs/"
+  mkdir -p "$ROOT/module/bin/libs"
+  cp "$ROOT/vendor/aapt/aapt" "$ROOT/module/bin/aapt"
+  cp "$ROOT"/vendor/aapt/libs/*.so* "$ROOT/module/bin/libs/"
 else
   echo "WARN: vendor/aapt 缺失（跳过），WebUI 将只显示包名"
 fi
-mkdir -p "$STAGE/src/module/zygisk"
-cp "$SO" "$STAGE/src/module/zygisk/$ABI.so"
-mkdir -p "$ROOT/dist"
+mkdir -p "$ROOT/module/zygisk"
+cp "$SO" "$ROOT/module/zygisk/$ABI.so"
+
 VERSION="$(grep '^version=' "$ROOT/module/module.prop" | cut -d= -f2)"
 VERSION_CODE="$(grep '^versionCode=' "$ROOT/module/module.prop" | cut -d= -f2)"
 ZIP_NAME="clipshield-${VERSION_CODE}-${VERSION}.zip"
-python - "$ROOT/dist/$ZIP_NAME" "$STAGE/src/module" <<'PY'
+python - "$ROOT/dist/$ZIP_NAME" "$ROOT/module" <<'PY'
 import os, sys, zipfile
 out, module_dir = sys.argv[1], sys.argv[2]
 with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
