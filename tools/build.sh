@@ -99,13 +99,13 @@ if [ -n "${STRIP:-}" ]; then "$STRIP" --strip-all "$SO"; fi
 echo "== .so built: $(wc -c < "$SO") bytes"
 
 # ---- 4. 打包模块 zip ----
-# 内置 aapt（读真实应用名）及其 .so 依赖
-if [ -f "$ROOT/third_party/aapt-prebuilt/aapt" ]; then
+# 内置 aapt（读真实应用名）及其 .so 依赖（vendor 目录，源自 Termux aapt 16.0.0.4-3）
+if [ -f "$ROOT/vendor/aapt/aapt" ]; then
   mkdir -p "$STAGE/src/module/bin/libs"
-  cp "$ROOT/third_party/aapt-prebuilt/aapt" "$STAGE/src/module/bin/aapt"
-  cp "$ROOT"/third_party/aapt-prebuilt/libs/*.so* "$STAGE/src/module/bin/libs/"
+  cp "$ROOT/vendor/aapt/aapt" "$STAGE/src/module/bin/aapt"
+  cp "$ROOT"/vendor/aapt/libs/*.so* "$STAGE/src/module/bin/libs/"
 else
-  echo "WARN: aapt-prebuilt 缺失（跳过），WebUI 将只显示包名（先跑 tools/fetch_deps.sh）"
+  echo "WARN: vendor/aapt 缺失（跳过），WebUI 将只显示包名"
 fi
 mkdir -p "$STAGE/src/module/zygisk"
 cp "$SO" "$STAGE/src/module/zygisk/$ABI.so"
