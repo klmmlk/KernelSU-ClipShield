@@ -24,7 +24,12 @@ jobs:
         run: bash tools/fetch_deps.sh
 
       - name: Build module zip
-        run: bash tools/build.sh
+        run: |
+          bash tools/build.sh 2>&1 | tee /tmp/build_log.txt
+          exit ${PIPESTATUS[0]}
+      - name: Build log tail (on failure)
+        if: failure()
+        run: tail -60 /tmp/build_log.txt || true
 
       # 构建 ./module 目录、预检并发布 immutable release
       # （须先在仓库 Settings → General → Releases 开启 release immutability）
