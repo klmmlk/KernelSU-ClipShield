@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "note": "预设分类仅供快捷选择；包名可自行增删。输入法（搜狗/百度/讯飞输入法等）请勿拉黑，否则会影响粘贴建议功能。",
+  "categories": [
+    {
+      "id": "shopping",
+      "name": "购物比价",
+      "apps": {
+        "com.taobao.taobao": "淘宝",
+        "com.tmall.wireless": "天猫",
+        "com.jingdong.app.mall": "京东",
+        "com.xunmeng.pinduoduo": "拼多多",
+        "com.achievo.vipshop": "唯品会",
+        "com.suning.mobile.ebuy": "苏宁易购",
+        "com.xiaomi.shop": "小米商城",
+        "com.kaola": "考拉海购"
+      }
+    },
+    {
+      "id": "video",
+      "name": "短视频/影音",
+      "apps": {
+        "com.ss.android.ugc.aweme": "抖音",
+        "com.ss.android.ugc.aweme.lite": "抖音极速版",
+        "com.smile.gifmaker": "快手",
+        "com.kuaishou.nebula": "快手极速版",
+        "tv.danmaku.bili": "哔哩哔哩",
+        "com.tencent.qqlive": "腾讯视频",
+        "com.qiyi.video": "爱奇艺"
+      }
+    },
+    {
+      "id": "life",
+      "name": "外卖/出行",
+      "apps": {
+        "com.sankuai.meituan": "美团",
+        "com.sankuai.meituan.takeoutnew": "美团外卖",
+        "me.ele": "饿了么",
+        "com.sdu.didi.psnger": "滴滴出行",
+        "com.autonavi.minimap": "高德地图",
+        "com.taobao.trip": "飞猪"
+      }
+    },
+    {
+      "id": "social",
+      "name": "社交/社区",
+      "apps": {
+        "com.sina.weibo": "微博",
+        "com.xingin.xhs": "小红书",
+        "com.zhihu.android": "知乎",
+        "com.ss.android.article.news": "今日头条",
+        "com.tencent.mobileqq": "QQ",
+        "com.alibaba.android.rimet": "钉钉"
+      }
+    },
+    {
+      "id": "music",
+      "name": "音乐/工具",
+      "apps": {
+        "com.netease.cloudmusic": "网易云音乐",
+        "com.kugou.android": "酷狗音乐",
+        "com.tencent.qqmusic": "QQ音乐",
+        "cn.kuwo.player": "酷我音乐",
+        "com.baidu.netdisk": "百度网盘",
+        "com.alicloud.databox": "阿里云盘",
+        "cn.wps.moffice_eng": "WPS Office"
+      }
+    },
+    {
+      "id": "browser",
+      "name": "浏览器",
+      "apps": {
+        "com.baidu.searchbox": "百度",
+        "com.UCMobile": "UC浏览器",
+        "com.tencent.mtt": "QQ浏览器",
+        "com.quark.browser": "夸克"
+      }
+    },
+    {
+      "id": "finance",
+      "name": "支付/金融（谨慎）",
+      "apps": {
+        "com.eg.android.AlipayGphone": "支付宝",
+        "com.unionpay": "云闪付"
+      }
+    }
+  ]
+}

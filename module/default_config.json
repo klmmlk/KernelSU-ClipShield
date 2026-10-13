@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "default": "smart",
+  "blockWrites": false,
+  "verbose": true,
+  "toast": true,
+  "apps": {}
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>别动我的剪切板</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🛡️ 别动我的剪切板 <small>ClipShield</small></h1>
+    <div id="status" class="status">加载中…</div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>全局设置</h2>
+      <div class="row">
+        <label>默认策略（未单独配置的应用）</label>
+        <select id="defaultMode">
+          <option value="smart">智能模式（推荐）</option>
+          <option value="block">全部拦截</option>
+          <option value="allow">全部放行（关闭保护）</option>
+        </select>
+      </div>
+      <div class="row">
+        <label class="check">
+          <input type="checkbox" id="toast">
+          拦截时弹提示<span class="hint">（应用尝试偷读剪贴板时弹 Toast）</span>
+        </label>
+      </div>
+      <div class="row">
+        <label class="check">
+          <input type="checkbox" id="blockWrites">
+          连写入也拦截<span class="hint">（开启后黑名单应用无法复制内容，默认关闭）</span>
+        </label>
+      </div>
+      <div class="row">
+        <label class="check">
+          <input type="checkbox" id="verbose">
+          输出拦截日志<span class="hint">（logcat 过滤 ClipShield 查看）</span>
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>预设分类</h2>
+      <p class="hint">点击应用循环切换：智能 → 拦截 → 放行 → 恢复全局。灰色的未安装。</p>
+      <div id="presets"></div>
+    </section>
+
+    <section class="card">
+      <h2>全部应用 <button id="btnRescan" class="mini">重新扫描已装应用</button></h2>
+      <input id="search" type="search" placeholder="搜索包名 / 应用名…">
+      <div id="applist" class="applist"></div>
+      <p class="hint" id="appListHint">点击「重新扫描已装应用」加载列表。</p>
+    </section>
+
+    <section class="card actions">
+      <button id="btnSave" class="primary">保存配置</button>
+      <span class="hint">保存后需「强行停止」对应应用（或重启手机）才会生效。</span>
+    </section>
+
+    <section class="card note">
+      <h2>使用说明</h2>
+      <ul>
+        <li><b>智能模式</b>：拦截应用自动读取剪贴板（如启动时窥探）；只有当你在输入框长按点「粘贴」、或应用回读自己刚复制的内容时才放行。</li>
+        <li><b>已知限制</b>：部分应用内嵌网页（WebView）里的粘贴可能被误拦，遇到时把该应用改为「放行」即可。</li>
+        <li><b>输入法</b>：系统已启用的输入法（微信输入法、搜狗等）会<b>自动放行</b>，无需配置——它们的粘贴建议功能依赖剪贴板；也请不要手动拦截。</li>
+        <li>需要 Zygisk（Zygisk Next / ReZygisk）；Android 13+；仅 arm64。</li>
+      </ul>
+    </section>
+  </main>
+
+  <div id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>

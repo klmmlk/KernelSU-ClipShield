@@ -1,0 +1,16 @@
+# 构建产物
+build/
+dist/
+.cxx/
+obj/
+
+# 依赖（tools/fetch_deps.sh 按 pinned SHA 拉取）
+third_party/
+
+# 生成的嵌入文件
+native/src/embed/
+
+# 本地产物
+module/zygisk/*.so
+*.zip
+.zcode/

@@ -1,0 +1,6 @@
+id=clipshield
+name=别动我的剪切板
+version=v1.2.0
+versionCode=6
+author=klmmlk
+description=基于 Zygisk 的按应用剪贴板保护：拦截被拉黑 App 的剪切板读取与监听（可弹提示），智能模式仅在用户主动粘贴时放行，输入法自动放行。需要 Zygisk（Zygisk Next / ReZygisk）。Android 13+ / arm64-v8a。

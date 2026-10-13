@@ -1,0 +1,26 @@
+# KernelSU Modules 索引展示元数据（不影响设备端行为）
+# 校验规则见 https://developers.kernelsu.org/docs/zh-CN/module-yaml
+# yaml-language-server: $schema=https://raw.githubusercontent.com/KernelSU-Modules/tools/main/schemas/module.schema.json
+schemaVersion: 1
+id: clipshield
+name: 别动我的剪切板
+summary: 按应用拦截剪贴板窥探并弹提示：Zygisk hook 剪贴板 API，智能模式仅在用户主动粘贴时放行
+description: README.md
+license: GPL-3.0-only
+tags:
+  - privacy
+  - clipboard
+  - zygisk
+icon: assets/icon.png
+
+authors:
+  - name: klmmlk
+    url: "https://github.com/klmmlk"
+
+compatibility:
+  androidMinApi: 33
+  architectures:
+    - arm64-v8a
+
+release:
+  assetPattern: "clipshield-*.zip"

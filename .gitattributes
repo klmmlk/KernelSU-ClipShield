@@ -1,0 +1,9 @@
+# 统一 LF（设备上的 shell 脚本带 CRLF 会无法执行）
+* text=auto eol=lf
+
+# 二进制
+*.png binary
+*.zip binary
+*.dex binary
+*.so binary
+*.aar binary

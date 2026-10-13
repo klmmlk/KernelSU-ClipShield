@@ -1,0 +1,53 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write # 创建 release 并上传 zip
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Install NDK
+        id: ndk
+        uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: r27c
+          add-to-path: false
+
+      - name: Fetch deps
+        run: tools/fetch_deps.sh
+
+      - name: Build module zip
+        env:
+          ANDROID_NDK_HOME: ${{ steps.ndk.outputs.ndk-path }}
+        run: tools/build.sh
+
+      # 构建 ./module 目录、预检并发布 immutable release
+      # （须先在仓库 Settings → General → Releases 开启 release immutability）
+      # 固定到完整 commit SHA（branch 可被移动；此步骤持有 contents: write 权限）
+      - uses: KernelSU-Modules/tools/actions/module-release@e0ac1a6193e698beac3c2fc47dec88d180efca8a
+        id: release
+        with:
+          module-dir: module
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          generate-release-notes: true
+
+      - env:
+          ASSET_NAME: ${{ steps.release.outputs.asset-name }}
+          SHA256: ${{ steps.release.outputs.sha256 }}
+        run: |
+          echo "Published ${ASSET_NAME}"
+          echo "sha256 ${SHA256}"
