@@ -84,6 +84,7 @@ TOOLCHAIN="$NDK/build/cmake/android.toolchain.cmake"
 [ -f "$TOOLCHAIN" ] || { echo "ERROR: toolchain missing: $TOOLCHAIN"; exit 1; }
 cmake -G Ninja -S "$STAGE/src" -B "$STAGE/build" \
       -DCMAKE_TOOLCHAIN_FILE="$TOOLCHAIN" \
+      -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
       -DANDROID_ABI="$ABI" -DANDROID_PLATFORM=android-33 \
       -DANDROID_STL=c++_static -DCMAKE_BUILD_TYPE="$BUILD_TYPE"
 cmake --build "$STAGE/build" -j "$(nproc 2>/dev/null || echo 4)"
