@@ -21,10 +21,10 @@ jobs:
       # ubuntu-latest 镜像自带 Android SDK（含 NDK 27），无需额外安装
 
       - name: Fetch deps
-        run: tools/fetch_deps.sh
+        run: sh tools/fetch_deps.sh
 
       - name: Build module zip
-        run: tools/build.sh
+        run: sh tools/build.sh
 
       # 构建 ./module 目录、预检并发布 immutable release
       # （须先在仓库 Settings → General → Releases 开启 release immutability）

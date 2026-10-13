@@ -27,10 +27,10 @@ jobs:
           ls "$ANDROID_HOME/build-tools" || true
 
       - name: Fetch deps
-        run: tools/fetch_deps.sh
+        run: sh tools/fetch_deps.sh
 
       - name: Build module zip
-        run: tools/build.sh
+        run: sh tools/build.sh
 
       - uses: actions/upload-artifact@v4
         with:
