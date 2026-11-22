@@ -144,6 +144,8 @@ public:
     }
 
     void preAppSpecialize(zygisk::AppSpecializeArgs *args) override {
+        // Fail open: only an explicit non-allow policy schedules hooks.
+        pending_.mode = kAllow;
         // WebView 子 zygote 沙箱进程不处理
         if (args->is_child_zygote != nullptr && *args->is_child_zygote) {
             return;
@@ -187,7 +189,11 @@ public:
     }
 
     void postAppSpecialize(const zygisk::AppSpecializeArgs *args) override {
-        if (pending_.mode == kAllow) return;
+        if (pending_.mode == kAllow) {
+            // No hooks were installed, so no callbacks can point into this library.
+            api_->setOption(zygisk::Option::DLCLOSE_MODULE_LIBRARY);
+            return;
+        }
         AppPolicy policy = pending_;
         pending_.mode = kAllow; // 一次性
         if (!InstallClipboardHooks(env_, policy)) {
